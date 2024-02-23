@@ -7,11 +7,11 @@ namespace dimkashelk {
 
     class Langrage {
     public:
-        Langrage(std::vector<std::pair<double, double>> &points, size_t rank);
-        double operator()(double x);
+        explicit Langrage(const std::vector<std::pair<double, double>> &points);
+        double operator()(double x) const;
     private:
-        std::vector<std::pair<double, double>> points_;
-        size_t rank_;
+        const std::vector<std::pair<double, double>> points_;
+        double calculateFraction(size_t index, double x) const;
     };
 
 }
