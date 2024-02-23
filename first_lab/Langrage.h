@@ -8,10 +8,9 @@ namespace dimkashelk {
     class Langrage {
     public:
         Langrage(std::vector<std::pair<double, double>> &points, size_t rank);
-        double getValueFunc(double x);
+        double operator()(double x);
     private:
         std::vector<std::pair<double, double>> points_;
-        std::vector<double> coeff_;
     };
 
 }
