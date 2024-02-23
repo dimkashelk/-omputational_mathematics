@@ -8,9 +8,10 @@ namespace dimkashelk {
     public:
         explicit Spline(const std::vector<std::pair<double, double> > &points);
 
-        double operator()(double x) const;
+        double operator()(double number) const;
 
     private:
+        std::vector<std::pair<double, double>> points_;
         std::vector<double> a;
         std::vector<double> b;
         std::vector<double> c;
