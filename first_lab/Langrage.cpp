@@ -4,11 +4,8 @@
 #include <cstddef>
 
 dimkashelk::Langrage::Langrage(const std::vector<std::pair<double, double> > &points):
-    points_(points) {
-    if (points_.size() != 11) {
-        throw std::logic_error("Check count points");
-    }
-}
+    points_(points)
+{}
 
 double dimkashelk::Langrage::operator()(const double x) const {
     double res = 0.0;
