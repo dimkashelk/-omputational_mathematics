@@ -11,7 +11,7 @@ namespace dimkashelk {
         double operator()(double x) const;
     private:
         const std::vector<std::pair<double, double>> points_;
-        double calculateFraction(size_t index, double x) const;
+        double calculateFraction(std::size_t index, double x) const;
     };
 
 }
