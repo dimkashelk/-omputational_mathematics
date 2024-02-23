@@ -17,5 +17,7 @@ namespace {
     }
 }
 
-dimkashelk::Langrage::Langrage(std::vector<std::pair<double, double> > &points, size_t rank): points_(points) {
-}
+dimkashelk::Langrage::Langrage(std::vector<std::pair<double, double> > &points, size_t rank):
+    points_(points),
+    rank_(rank)
+{}

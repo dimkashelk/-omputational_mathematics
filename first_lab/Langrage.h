@@ -11,6 +11,7 @@ namespace dimkashelk {
         double operator()(double x);
     private:
         std::vector<std::pair<double, double>> points_;
+        size_t rank_;
     };
 
 }
