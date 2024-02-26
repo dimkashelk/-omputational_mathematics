@@ -3,16 +3,16 @@
 #include <algorithm>
 #include <cmath>
 
-dimkashelk::Quanc8::Quanc8(std::function<double(double)> &fun, double a, double b, double abs_err,
-                           double rel_err): fun_(fun),
-                                            a_(a),
-                                            b_(b),
-                                            abs_err_(abs_err),
-                                            rel_err_(rel_err),
-                                            result_(0.0),
-                                            error_(0.0),
-                                            no_fun_(0),
-                                            flag_(0.0) {
+dimkashelk::Quanc8::Quanc8(const std::function<double(double)> &fun, double a, double b, double abs_err, double rel_err): fun_(fun),
+    a_(a),
+    b_(b),
+    abs_err_(abs_err),
+    rel_err_(rel_err),
+    result_(0.0),
+    error_(0.0),
+    no_fun_(0),
+    flag_(0.0)
+{
     double QRIGHT[32], F[17], X[17], FSAVE[9][31], XSAVE[9][31];
     int LEVMIN, LEVMAX, LEVOUT, NOMAX, NOFIN, LEV, NIM, J, I;
     double W0, W1, W2, W3, W4, COR11, AREA, X0, F0, STONE, STEP;
@@ -22,7 +22,7 @@ dimkashelk::Quanc8::Quanc8(std::function<double(double)> &fun, double a, double 
     LEVMAX = 30;
     LEVOUT = 6;
     NOMAX = 5000;
-    NOFIN = NOMAX - (8 * (LEVMAX - LEVOUT + std::pow(2, (double) (LEVOUT + 1))));
+    NOFIN = NOMAX - (8 * (LEVMAX - LEVOUT + static_cast<int>(std::pow(2, LEVOUT + 1))));
 
     W0 = 3956.0 / 14175.0;
     W1 = 23552.0 / 14175.0;
