@@ -5,13 +5,21 @@
 namespace dimkashelk {
     class Quanc8 {
     public:
-        Quanc8(std::function<double (double)> &fun, double a, double b, double abs_err, double rel_err);
+        /**
+         * \brief 
+         * \param fun user functions with one double argument
+         * \param a lower bound of integration
+         * \param b upper bound of integration
+         * \param abs_err absolute error
+         * \param rel_err intermediate error
+         */
+        Quanc8(const std::function<double (double)> &fun, double a, double b, double abs_err, double rel_err);
         double getResult() const;
         double getError() const;
         int getNoFun() const;
         double getFlag() const;
     private:
-        std::function<double (double)> fun_{};
+        std::function<double (double)> fun_;
         const double a_;
         const double b_;
         const double abs_err_;
