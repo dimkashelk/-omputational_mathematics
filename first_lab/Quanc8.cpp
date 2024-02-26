@@ -143,3 +143,7 @@ ottanta:
         error_ = 2.0 * (error_);
     return;
 }
+
+double dimkashelk::Quanc8::getResult() const {
+    return result_;
+}
