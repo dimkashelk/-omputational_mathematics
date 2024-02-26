@@ -154,3 +154,7 @@ double dimkashelk::Quanc8::getError() const {
 int dimkashelk::Quanc8::getNoFun() const {
     return no_fun_;
 }
+
+double dimkashelk::Quanc8::getFlag() const {
+    return flag_;
+}
