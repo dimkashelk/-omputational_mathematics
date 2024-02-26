@@ -150,3 +150,7 @@ double dimkashelk::Quanc8::getResult() const {
 double dimkashelk::Quanc8::getError() const {
     return error_;
 }
+
+int dimkashelk::Quanc8::getNoFun() const {
+    return no_fun_;
+}
