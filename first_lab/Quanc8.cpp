@@ -141,9 +141,12 @@ ottanta:
         return;
     while (std::fabs(result_) + (error_) == std::fabs(result_))
         error_ = 2.0 * (error_);
-    return;
 }
 
 double dimkashelk::Quanc8::getResult() const {
     return result_;
+}
+
+double dimkashelk::Quanc8::getError() const {
+    return error_;
 }
