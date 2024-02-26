@@ -25,7 +25,7 @@ int main() {
     std::cout << "X   | Langrage | spline | F(x)\n";
     for (int i = 0; i < 10; i++) {
         double x = 0.05 + 0.1 * i;
-        std::cout << x << " | " << langrage(x) << " | " << spline(x) << " | " << f(x) << std::endl;
+        std::cout << x << " | " << langrage(x) << " | " << spline(x) << " | " << f(x) << "\n";
     }
 
     std::cout << "\n\n\n";
