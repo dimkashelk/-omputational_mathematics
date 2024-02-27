@@ -62,11 +62,11 @@ dimkashelk::Spline::Spline(const std::vector<std::pair<double, double> > &points
     }
     points_ = points;
     for (const auto &point: points) {
-        a.push_back(point.second);
+        a_.push_back(point.second);
     }
-    b = B;
-    c = C;
-    d = D;
+    b_ = B;
+    c_ = C;
+    d_ = D;
 }
 
 double dimkashelk::Spline::operator()(const double number) const {
@@ -82,5 +82,5 @@ double dimkashelk::Spline::operator()(const double number) const {
         }
     } while (j > i + 1);
     const double DX = number - points_[i - 1].first;
-    return a[i - 1] + DX * b[i - 1] + DX * DX * c[i - 1] + DX * DX * DX * d[i - 1];
+    return a_[i - 1] + DX * b_[i - 1] + DX * DX * c_[i - 1] + DX * DX * DX * d_[i - 1];
 }

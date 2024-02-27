@@ -12,10 +12,10 @@ namespace dimkashelk {
 
     private:
         std::vector<std::pair<double, double>> points_;
-        std::vector<double> a;
-        std::vector<double> b;
-        std::vector<double> c;
-        std::vector<double> d;
+        std::vector<double> a_;
+        std::vector<double> b_;
+        std::vector<double> c_;
+        std::vector<double> d_;
     };
 }
 #endif
