@@ -58,7 +58,8 @@ int dimkashelk::details::solve(int n, int ndim,
 } /* --- end function solve() --- */
 
 dimkashelk::Solve::Solve(): size_(0),
-                            data_right_(nullptr) {
+                            data_right_(nullptr),
+                            cond_(0.0) {
 }
 
 void dimkashelk::Solve::operator()(const std::vector<std::vector<double> > &matrix_left,
@@ -75,6 +76,7 @@ void dimkashelk::Solve::operator()(const std::vector<std::vector<double> > &matr
     }
     Decomp dec;
     dec(matrix_left);
+    cond_ = dec.cond_;
     const int size = static_cast<int>(matrix_left.size());
     details::solve(size, size, dec.data_, data_right_, dec.pivot_);
 }
@@ -85,6 +87,10 @@ std::vector<double> dimkashelk::Solve::get_result() const {
         res[i] = data_right_[i];
     }
     return res;
+}
+
+double dimkashelk::Solve::get_cond() const {
+    return cond_;
 }
 
 dimkashelk::Solve::~Solve() {

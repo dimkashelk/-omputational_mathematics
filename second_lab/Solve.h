@@ -1,7 +1,6 @@
 #ifndef SOLVE_H
 #define SOLVE_H
 #include <vector>
-#include "Decomp.h"
 
 namespace dimkashelk {
     namespace details {
@@ -21,12 +20,14 @@ namespace dimkashelk {
         void operator()(const std::vector<std::vector<double> > &matrix_left, const std::vector<double> &matrix_right);
 
         [[nodiscard]] std::vector<double> get_result() const;
+        [[nodiscard]] double get_cond() const;
 
         ~Solve();
 
     private:
         int size_;
         double *data_right_;
+        double cond_;
 
         void free() const;
     };
