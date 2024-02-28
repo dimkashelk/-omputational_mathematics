@@ -15,7 +15,7 @@ dimkashelk::Decomp::Decomp(const std::vector<std::vector<double> > &matrix): con
     if (matrix.size() != matrix[0].size()) {
         throw std::logic_error("Check size of matrix");
     }
-    data_ = new double[matrix.size() * matrix[0].size()];
+    data_ = new double[size_ * size_];
     try {
         pivot_ = new int[matrix.size()];
     } catch (...) {
