@@ -105,16 +105,19 @@ int main() {
         auto right = get_right_matrix(number);
         solve(left, right);
         auto res1 = solve.get_result();
+        auto cond1 = solve.get_cond();
 
         auto gaussian = get_gaussian_elimination(left);
         auto new_left = multiply_matrices(gaussian, left);
         auto new_right = multiply_matrices(gaussian, right);
         solve(new_left, new_right);
         auto res2 = solve.get_result();
+        auto cond2 = solve.get_cond();
 
         for (int i = 0; i < res1.size(); i++) {
             std::cout << "\tx" << i << ": " << res1[i] << "\t\t\t" << res2[i] << '\n';
         }
+        std::cout << "cond: \t" << cond1 << "\t\t" << cond2 << "\n";
         std::cout << "\n";
     }
     return 0;
