@@ -7,9 +7,11 @@ namespace dimkashelk {
     public:
         explicit Decomp(const std::vector<std::vector<double>> &matrix);
     private:
-        std::vector<std::vector<double>> matrix_;
         double cond_;
-
+        const int size_;
+        double *data_;
+        int *pivot_;
+        int flag_;
     };
 }
 #endif
