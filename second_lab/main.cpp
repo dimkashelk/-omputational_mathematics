@@ -2,7 +2,7 @@
 
 #include "Solve.h"
 
-void gaussianElimination(std::vector<std::vector<double> > &matrix) {
+void gaussian_elimination(std::vector<std::vector<double> > &matrix) {
     const int n = static_cast<int>(matrix.size());
     for (int i = 0; i < n; ++i) {
         int maxRow = i;
