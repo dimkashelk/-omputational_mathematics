@@ -251,15 +251,16 @@ void dimkashelk::Decomp::operator()(const std::vector<std::vector<double> > &mat
     free();
     data_ = new double[size_ * size_];
     try {
-        pivot_ = new int[matrix.size()];
+        pivot_ = new int[matrix.size() * matrix.size()];
     } catch (...) {
         delete[] data_;
         throw;
     }
     int ind = 0;
     for (auto &i: matrix) {
-        for (int j = 0; j < matrix[0].size(); j++, ind++) {
-            data_[ind] = i[j];
+        for (double j: i) {
+            data_[ind] = j;
+            ind++;
         }
     }
     details::decomp(size_, size_, data_, std::addressof(cond_), pivot_, std::addressof(flag_));
