@@ -132,7 +132,8 @@ int main() {
             std::cout << "\tx" << i << ": " << res1[i] << "\t\t\t" << res2[i] << '\n';
         }
         std::cout << "cond: \t" << cond1 << "\t\t" << cond2 << "\n";
-        std::cout << "norm:\t" << get_matrix_norm(get_difference_of_matrix(res1, res2)) / get_matrix_norm(res1) << "\n";
+        const auto res3 = get_matrix_norm(get_difference_of_matrix(res1, res2)) / get_matrix_norm(res1);
+        std::cout << "norm:\t" << res3 << "\n";
         std::cout << "\n";
     }
     return 0;
