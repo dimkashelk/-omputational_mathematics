@@ -31,6 +31,24 @@ void gaussian_elimination(std::vector<std::vector<double> > &matrix) {
     }
 }
 
+std::vector<std::vector<double> > multiply_matrices(const std::vector<std::vector<double> > &matrix1,
+                                                    const std::vector<std::vector<double> > &matrix2) {
+    const int rows1 = static_cast<int>(matrix1.size());
+    const int cols1 = static_cast<int>(matrix1[0].size());
+    const int cols2 = static_cast<int>(matrix2[0].size());
+
+    std::vector result(rows1, std::vector(cols2, 0.0));
+
+    for (int i = 0; i < rows1; ++i) {
+        for (int j = 0; j < cols2; ++j) {
+            for (int k = 0; k < cols1; ++k) {
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+    return result;
+}
+
 std::vector<std::vector<double> > get_left_matrix(double p) {
     return {
         {p - 29, 6, -6, -4, -3, -8, -5, 5},
