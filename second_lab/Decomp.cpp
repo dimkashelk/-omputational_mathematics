@@ -269,7 +269,7 @@ dimkashelk::Decomp::~Decomp() {
     free();
 }
 
-void dimkashelk::Decomp::free() {
+void dimkashelk::Decomp::free() const {
     if (data_ != nullptr) {
         delete[] data_;
     }

@@ -17,7 +17,7 @@ namespace dimkashelk {
     public:
         Decomp();
 
-        void operator()(const std::vector<std::vector<double>> &matrix);
+        void operator()(const std::vector<std::vector<double> > &matrix);
 
         ~Decomp();
 
@@ -28,7 +28,7 @@ namespace dimkashelk {
         int *pivot_;
         int flag_;
 
-        void free();
+        void free() const;
     };
 }
 #endif
