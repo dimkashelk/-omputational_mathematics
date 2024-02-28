@@ -18,7 +18,7 @@ namespace dimkashelk {
     public:
         Solve();
 
-        void operator()(const std::vector<std::vector<double> > &matrix_left, std::vector<double> &matrix_right);
+        void operator()(const std::vector<std::vector<double> > &matrix_left, const std::vector<double> &matrix_right);
         [[nodiscard]] std::vector<double> get_result() const;
 
         ~Solve();
