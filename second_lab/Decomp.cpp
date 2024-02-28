@@ -249,6 +249,7 @@ void dimkashelk::Decomp::operator()(const std::vector<std::vector<double> > &mat
         throw std::logic_error("Check size of matrix");
     }
     free();
+    size_ = static_cast<int>(matrix.size());
     data_ = new double[size_ * size_];
     try {
         pivot_ = new int[matrix.size() * matrix.size()];
