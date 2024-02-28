@@ -2,6 +2,35 @@
 
 #include "Solve.h"
 
+void gaussianElimination(std::vector<std::vector<double> > &matrix) {
+    const int n = static_cast<int>(matrix.size());
+    for (int i = 0; i < n; ++i) {
+        int maxRow = i;
+        for (int k = i + 1; k < n; ++k) {
+            if (std::abs(matrix[k][i]) > std::abs(matrix[maxRow][i])) {
+                maxRow = k;
+            }
+        }
+        if (maxRow != i) {
+            std::swap(matrix[i], matrix[maxRow]);
+        }
+
+        for (int k = i + 1; k < n; ++k) {
+            const double factor = matrix[k][i] / matrix[i][i];
+            for (int j = i; j < n + 1; ++j) {
+                matrix[k][j] -= factor * matrix[i][j];
+            }
+        }
+    }
+
+    for (int i = n - 1; i >= 0; --i) {
+        for (int j = i + 1; j < n; ++j) {
+            matrix[i][n] -= matrix[i][j] * matrix[j][n];
+        }
+        matrix[i][n] /= matrix[i][i];
+    }
+}
+
 std::vector<std::vector<double> > get_left_matrix(double p) {
     return {
         {p - 29, 6, -6, -4, -3, -8, -5, 5},
