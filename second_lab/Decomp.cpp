@@ -234,11 +234,20 @@ DecompExit:
     return (0);
 } /* --- end of function decomp() --- */
 
-dimkashelk::Decomp::Decomp(const std::vector<std::vector<double> > &matrix): cond_(0.0),
-                                                                             size_(static_cast<int>(matrix.size())),
-                                                                             data_(nullptr),
-                                                                             pivot_(nullptr),
-                                                                             flag_(0) {
+dimkashelk::Decomp::Decomp(): cond_(0.0),
+                              size_(0),
+                              data_(nullptr),
+                              pivot_(nullptr),
+                              flag_(0) {
+}
+
+void dimkashelk::Decomp::operator()(const std::vector<std::vector<double> > &matrix) {
+    if (data_ != nullptr) {
+        delete[] data_;
+    }
+    if (pivot_ != nullptr) {
+        delete[] pivot_;
+    }
     if (matrix.empty()) {
         throw std::logic_error("Check matrix");
     }
@@ -259,4 +268,13 @@ dimkashelk::Decomp::Decomp(const std::vector<std::vector<double> > &matrix): con
         }
     }
     details::decomp(size_, size_, data_, std::addressof(cond_), pivot_, std::addressof(flag_));
+}
+
+dimkashelk::Decomp::~Decomp() {
+    if (data_ != nullptr) {
+        delete[] data_;
+    }
+    if (pivot_ != nullptr) {
+        delete[] pivot_;
+    }
 }

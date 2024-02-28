@@ -9,13 +9,21 @@ namespace dimkashelk {
                    int pivot[], int *flag);
     }
 
+    class Solve;
+
     class Decomp {
+        friend class Solve;
+
     public:
-        explicit Decomp(const std::vector<std::vector<double> > &matrix);
+        Decomp();
+
+        void operator()(const std::vector<std::vector<double> > &matrix);
+
+        ~Decomp();
 
     private:
         double cond_;
-        const int size_;
+        int size_;
         double *data_;
         int *pivot_;
         int flag_;
