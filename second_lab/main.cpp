@@ -2,7 +2,8 @@
 
 #include "Solve.h"
 
-void gaussian_elimination(std::vector<std::vector<double> > &matrix) {
+std::vector<std::vector<double> > get_gaussian_elimination(std::vector<std::vector<double> > &m) {
+    auto matrix = m;
     const int n = static_cast<int>(matrix.size());
     for (int i = 0; i < n; ++i) {
         int maxRow = i;
@@ -29,6 +30,7 @@ void gaussian_elimination(std::vector<std::vector<double> > &matrix) {
         }
         matrix[i][n] /= matrix[i][i];
     }
+    return matrix;
 }
 
 std::vector<std::vector<double> > multiply_matrices(const std::vector<std::vector<double> > &matrix1,
@@ -44,6 +46,22 @@ std::vector<std::vector<double> > multiply_matrices(const std::vector<std::vecto
             for (int k = 0; k < cols1; ++k) {
                 result[i][j] += matrix1[i][k] * matrix2[k][j];
             }
+        }
+    }
+    return result;
+}
+
+std::vector<double> multiply_matrices(const std::vector<std::vector<double> > &matrix1,
+                                      const std::vector<double> &matrix2) {
+    const int rows1 = static_cast<int>(matrix1.size());
+    const int cols1 = static_cast<int>(matrix1.size());
+    const int cols2 = static_cast<int>(matrix2.size());
+
+    std::vector result(rows1, 0.0);
+
+    for (int i = 0; i < cols2; i++) {
+        for (int j = 0; j < rows1; j++) {
+            result[i] += matrix1[i][j] * matrix2[j];
         }
     }
     return result;
@@ -80,13 +98,22 @@ int main() {
 
     const auto numbers = {1.0, 0.1, 0.01, 0.0001, 0.000001};
     for (const auto number: numbers) {
+        std::cout << "p = " << number << ": \n";
+        std::cout << "Part one\t\t\tPart two\n";
+
         auto left = get_left_matrix(number);
         auto right = get_right_matrix(number);
         solve(left, right);
-        auto res = solve.get_result();
-        std::cout << "p = " << number << ": \n";
-        for (int i = 0; i < res.size(); i++) {
-            std::cout << "\tx" << i << ": " << res[i] << '\n';
+        auto res1 = solve.get_result();
+
+        auto gaussian = get_gaussian_elimination(left);
+        auto new_left = multiply_matrices(gaussian, left);
+        auto new_right = multiply_matrices(gaussian, right);
+        solve(new_left, new_right);
+        auto res2 = solve.get_result();
+
+        for (int i = 0; i < res1.size(); i++) {
+            std::cout << "\tx" << i << ": " << res1[i] << "\t\t\t" << res2[i] << '\n';
         }
         std::cout << "\n";
     }
