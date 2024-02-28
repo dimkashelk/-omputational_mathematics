@@ -2,6 +2,15 @@
 
 #include "Solve.h"
 
+std::vector<double> get_difference_of_matrix(const std::vector<double> &left,
+                                             const std::vector<double> &right) {
+    std::vector result = left;
+    for (int i = 0; i < left.size(); i++) {
+        result[i] -= right[i];
+    }
+    return result;
+}
+
 std::vector<std::vector<double> > get_gaussian_elimination(std::vector<std::vector<double> > &m) {
     auto matrix = m;
     const int n = static_cast<int>(matrix.size());
