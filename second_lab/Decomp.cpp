@@ -242,17 +242,17 @@ dimkashelk::Decomp::Decomp(): cond_(0.0),
 }
 
 void dimkashelk::Decomp::operator()(const std::vector<std::vector<double> > &matrix) {
-    if (data_ != nullptr) {
-        delete[] data_;
-    }
-    if (pivot_ != nullptr) {
-        delete[] pivot_;
-    }
     if (matrix.empty()) {
         throw std::logic_error("Check matrix");
     }
     if (matrix.size() != matrix[0].size()) {
         throw std::logic_error("Check size of matrix");
+    }
+    if (data_ != nullptr) {
+        delete[] data_;
+    }
+    if (pivot_ != nullptr) {
+        delete[] pivot_;
     }
     data_ = new double[size_ * size_];
     try {
