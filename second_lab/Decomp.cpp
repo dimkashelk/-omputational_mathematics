@@ -248,12 +248,7 @@ void dimkashelk::Decomp::operator()(const std::vector<std::vector<double> > &mat
     if (matrix.size() != matrix[0].size()) {
         throw std::logic_error("Check size of matrix");
     }
-    if (data_ != nullptr) {
-        delete[] data_;
-    }
-    if (pivot_ != nullptr) {
-        delete[] pivot_;
-    }
+    free();
     data_ = new double[size_ * size_];
     try {
         pivot_ = new int[matrix.size()];
@@ -271,6 +266,10 @@ void dimkashelk::Decomp::operator()(const std::vector<std::vector<double> > &mat
 }
 
 dimkashelk::Decomp::~Decomp() {
+    free();
+}
+
+void dimkashelk::Decomp::free() {
     if (data_ != nullptr) {
         delete[] data_;
     }
