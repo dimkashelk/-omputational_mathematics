@@ -19,10 +19,12 @@ namespace dimkashelk {
         Solve();
 
         void operator()(const std::vector<std::vector<double> > &matrix_left, std::vector<double> &matrix_right);
+        [[nodiscard]] std::vector<double> get_result() const;
 
         ~Solve();
 
     private:
+        int size_;
         double *data_right_;
 
         void free() const;
