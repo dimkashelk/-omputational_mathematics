@@ -3,9 +3,16 @@
 #include <vector>
 
 namespace dimkashelk {
+    namespace details {
+        int decomp(int n, int ndim,
+                   double *a, double *cond,
+                   int pivot[], int *flag);
+    }
+
     class Decomp {
     public:
-        explicit Decomp(const std::vector<std::vector<double>> &matrix);
+        explicit Decomp(const std::vector<std::vector<double> > &matrix);
+
     private:
         double cond_;
         const int size_;
