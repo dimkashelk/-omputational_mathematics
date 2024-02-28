@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 
 #include "Solve.h"
@@ -9,6 +10,10 @@ std::vector<double> get_difference_of_matrix(const std::vector<double> &left,
         result[i] -= right[i];
     }
     return result;
+}
+
+double get_matrix_norm(const std::vector<double> &matrix) {
+    return *std::max_element(matrix.begin(), matrix.end());
 }
 
 std::vector<std::vector<double> > get_gaussian_elimination(std::vector<std::vector<double> > &m) {
@@ -114,19 +119,20 @@ int main() {
         auto right = get_right_matrix(number);
         solve(left, right);
         auto res1 = solve.get_result();
-        auto cond1 = solve.get_cond();
+        const auto cond1 = solve.get_cond();
 
         auto gaussian = get_gaussian_elimination(left);
         auto new_left = multiply_matrices(gaussian, left);
         auto new_right = multiply_matrices(gaussian, right);
         solve(new_left, new_right);
         auto res2 = solve.get_result();
-        auto cond2 = solve.get_cond();
+        const auto cond2 = solve.get_cond();
 
         for (int i = 0; i < res1.size(); i++) {
             std::cout << "\tx" << i << ": " << res1[i] << "\t\t\t" << res2[i] << '\n';
         }
         std::cout << "cond: \t" << cond1 << "\t\t" << cond2 << "\n";
+        std::cout << "norm:\t" << get_matrix_norm(get_difference_of_matrix(res1, res2)) / get_matrix_norm(res1) << "\n";
         std::cout << "\n";
     }
     return 0;
