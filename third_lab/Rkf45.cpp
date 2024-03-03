@@ -17,8 +17,9 @@ void dimkashelk::Rkf45::calculate(int (*F)(int n, double t, double y[], double y
     int NFE = 0;
     int MAXNFE = 100000;
     while (t <= tout) {
-        rkf45(F, NEQN, valueArray, dop, &t, t + STEP, &REL, ABS, H, &NFE, MAXNFE, &flag);
         std::cout << t << " " << valueArray[0] << " " << valueArray[1] << "\n";
+        rkf45(F, NEQN, valueArray, dop, &t, t + STEP, &REL, ABS, H, &NFE, MAXNFE, &flag);
     }
+    std::cout << t << " " << valueArray[0] << " " << valueArray[1] << "\n";
     rkfend();
 }
