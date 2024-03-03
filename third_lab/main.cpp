@@ -3,9 +3,9 @@
 #include <cmath>
 #include "Rkf45.h"
 
-int func(int n, double t, double *valVector, double *derivVector) {
-    derivVector[0] = -71 * valVector[0] - 70 * valVector[1] + std::exp(1 - t * t);
-    derivVector[1] = valVector[0] + std::sin(1 - t);
+int func(int n, double t, double *value, double *res) {
+    res[0] = -71 * value[0] - 70 * value[1] + std::exp(1 - t * t);
+    res[1] = value[0] + std::sin(1 - t);
     return 0;
 }
 
