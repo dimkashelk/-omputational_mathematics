@@ -1,99 +1,244 @@
-#include <cstddef>
-static double *F1, *F2, *F3, *F4, *F5, *SAVRE, *SAVAE;
-static int    *KOP, *INIT, *JFLAG, *KFLAG;
+/************************************************/
+/*                                              */
+/*  CMATH.  Copyright (c) 1989 Design Software  */
+/*                                              */
+/************************************************/
+#ifndef RKF_H
+#define RKF_H
 
-int rkfinit(int NEQN, int *fail) {
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
+
+#define  NULL  0LL
+#define  EPSILON  2.2e-16
+
+/*-----------------------------------------------------------------*/
+
+/* global definitions */
+
+static double *F1, *F2, *F3, *F4, *F5, *SAVRE, *SAVAE;
+static int *KOP, *INIT, *JFLAG, *KFLAG;
+
+/*-----------------------------------------------------------------*/
+
+
+void rkfinit(int NEQN, int *fail)
+
+/* Purpose...
+   -------
+   This routine allocates the work space and must be called
+   before using rkf45().
+
+   Input ...
+   -----
+   NEQN  : Number of ODE's
+
+   Output ...
+   ------
+   fail  : Status indicator
+           = 0 : successful allocation of workspace
+           = 1 : could not allocate memory for workspace
+           = 2 : illegal value for NEQN (i.e. < 1)
+   */
+
+{
     *fail = 0;
 
     if (NEQN <= 0) {
         *fail = 2;
-        return (0);
     }
 
-    KOP = (int *) nullptr;
-    INIT = (int *) nullptr;
-    JFLAG = (int *) nullptr;
-    KFLAG = (int *) nullptr;
-    SAVRE = (double *) nullptr;
-    SAVAE = (double *) nullptr;
-    F1 = (double *) nullptr;
-    F2 = (double *) nullptr;
-    F3 = (double *) nullptr;
-    F4 = (double *) nullptr;
-    F5 = (double *) nullptr;
+    KOP = (int *) NULL;
+    INIT = (int *) NULL;
+    JFLAG = (int *) NULL;
+    KFLAG = (int *) NULL;
+    SAVRE = (double *) NULL;
+    SAVAE = (double *) NULL;
+    F1 = (double *) NULL;
+    F2 = (double *) NULL;
+    F3 = (double *) NULL;
+    F4 = (double *) NULL;
+    F5 = (double *) NULL;
 
-    KOP = new int();
-    INIT = new int();
-    JFLAG = new int();
-    KFLAG = new int();
+    KOP = (int *) malloc(sizeof(int));
+    if (KOP == NULL) {
+        *fail = 1;
+    }
+    INIT = (int *) malloc(sizeof(int));
+    if (INIT == NULL) {
+        *fail = 1;
+    }
+    JFLAG = (int *) malloc(sizeof(int));
+    if (JFLAG == NULL) {
+        *fail = 1;
+    }
+    KFLAG = (int *) malloc(sizeof(int));
+    if (KFLAG == NULL) {
+        *fail = 1;
+    }
 
-    SAVRE = new double();
-    SAVAE = new double();
+    SAVRE = (double *) malloc(sizeof(double));
+    if (SAVRE == NULL) {
+        *fail = 1;
+    }
+    SAVAE = (double *) malloc(sizeof(double));
+    if (SAVAE == NULL) {
+        *fail = 1;
+    }
 
-    F1 = new double[NEQN];
-    F2 = new double[NEQN];
-    F3 = new double[NEQN];
-    F4 = new double[NEQN];
-    F5 = new double[NEQN];
+    F1 = (double *) malloc(NEQN * sizeof(double));
+    if (F1 == NULL) {
+        *fail = 1;
+    }
+    F2 = (double *) malloc(NEQN * sizeof(double));
+    if (F2 == NULL) {
+        *fail = 1;
+    }
+    F3 = (double *) malloc(NEQN * sizeof(double));
+    if (F3 == NULL) {
+        *fail = 1;
+    }
+    F4 = (double *) malloc(NEQN * sizeof(double));
+    if (F4 == NULL) {
+        *fail = 1;
+    }
+    F5 = (double *) malloc(NEQN * sizeof(double));
+    if (F5 == NULL) {
+        *fail = 1;
+    }
+} /* end of rkfinit() */
 
-    return (0);
-}
+/*-----------------------------------------------------------------*/
 
-int rkfend(void) {
-    if (F5 != nullptr) {
+void rkfend(void)
+
+/* Purpose...
+   -------
+   This routine cleans up the work space and should be called
+   when the user is finished with rkf45().
+   */
+
+{
+    if (F5 != NULL) {
         free(F5);
-        F5 = nullptr;
+        F5 = NULL;
     }
-    if (F4 != nullptr) {
+    if (F4 != NULL) {
         free(F4);
-        F4 = nullptr;
+        F4 = NULL;
     }
-    if (F3 != nullptr) {
+    if (F3 != NULL) {
         free(F3);
-        F3 = nullptr;
+        F3 = NULL;
     }
-    if (F2 != nullptr) {
+    if (F2 != NULL) {
         free(F2);
-        F2 = nullptr;
+        F2 = NULL;
     }
-    if (F1 != nullptr) {
+    if (F1 != NULL) {
         free(F1);
-        F1 = nullptr;
+        F1 = NULL;
     }
-    if (SAVAE != nullptr) {
+    if (SAVAE != NULL) {
         free(SAVAE);
-        SAVAE = nullptr;
+        SAVAE = NULL;
     }
-    if (SAVRE != nullptr) {
+    if (SAVRE != NULL) {
         free(SAVRE);
-        SAVRE = nullptr;
+        SAVRE = NULL;
     }
-    if (KFLAG != nullptr) {
+    if (KFLAG != NULL) {
         free(KFLAG);
-        KFLAG = nullptr;
+        KFLAG = NULL;
     }
-    if (JFLAG != nullptr) {
+    if (JFLAG != NULL) {
         free(JFLAG);
-        JFLAG = nullptr;
+        JFLAG = NULL;
     }
-    if (INIT != nullptr) {
+    if (INIT != NULL) {
         free(INIT);
-        INIT = nullptr;
+        INIT = NULL;
     }
-    if (KOP != nullptr) {
+    if (KOP != NULL) {
         free(KOP);
-        KOP = nullptr;
+        KOP = NULL;
     }
-
-    return (0);
 }
 
-int rkf45(int (*F)(int n, double t, double y[], double yp[]), int NEQN,
-          double Y[], double YP[],
-          double *T, double TOUT,
-          double *RELERR, double ABSERR,
-          double *H,
-          int *NFE, int MAXNFE, int *IFLAG)
+void fehl45(int (*F)(int n, double t, double y[], double yp[]),
+            double T, double H,
+            double Y[], double YP[], double F1[],
+            double F2[], double F3[], double F4[],
+            double F5[], int NEQN)
+/* Fehlberg fourth-fifth order Runge-Kutta method
+
+   fehl45 integrates a system of NEQN first order
+   ordinary differential equations of the form
+         dy(0)/dt=F(T,Y(0),...,Y(NEQN-1))
+   where the initial values Y(1) and the initial derivatives
+   YP(1) are specified at the starting point T. fehl45 advances
+   the solution over the fixed step H and returns
+   the fifth order (sixth order accurate locally) solution
+   approximation at T+H in array F1(1).
+   F2,...,F5 are arrays of dimension NDIM which are needed
+   for internal storage.
+   The formulas have been grouped to control loss of significance.
+   fehl45() should be called with an H not smaller than 13 units of
+   roundoff in T so that the various independent arguments can be
+   distinguished.
+
+*/
+{
+    /* --- start of function fehl45() ---- */
+    double CH;
+    int K;
+
+    CH = H / 4.0;
+    for (K = 0; K < NEQN; ++K) F5[K] = Y[K] + CH * YP[K];
+    (*F)(NEQN, T + CH, F5, F1);
+
+    CH = 3.0 * H / 32.0;
+    for (K = 0; K < NEQN; ++K) F5[K] = Y[K] + CH * (YP[K] + 3.0 * F1[K]);
+    (*F)(NEQN, T + 3.0 * H / 8.0, F5, F2);
+
+    CH = H / 2197.0;
+    for (K = 0; K < NEQN; ++K)
+        F5[K] = Y[K] + CH * (1932.0 * YP[K] + (7296.0 * F2[K] -
+                                               7200.0 * F1[K]));
+    (*F)(NEQN, T + 12.0 * H / 13.0, F5, F3);
+
+    CH = H / 4104.0;
+    for (K = 0; K < NEQN; ++K)
+        F5[K] = Y[K] + CH * ((8341.0 * YP[K] - 845.0 * F3[K]) +
+                             (29440.0 * F2[K] - 32832.0 * F1[K]));
+    (*F)(NEQN, T + H, F5, F4);
+
+    CH = H / 20520.0;
+    for (K = 0; K < NEQN; ++K)
+        F1[K] = Y[K] + CH * ((-6080.0 * YP[K] + (9295.0 * F3[K] -
+                                                 5643.0 * F4[K])) + (41040.0 * F1[K] - 28352.0 * F2[K]));
+    (*F)(NEQN, T + H / 2.0, F1, F5);
+
+    /* --- Compute approximate solution at T+H. --- */
+
+    CH = H / 7618050.0;
+    for (K = 0; K < NEQN; ++K)
+        F1[K] = Y[K] + CH * ((902880.0 * YP[K] + (3855735.0 * F3[K] -
+                                                  1371249.0 * F4[K])) + (3953664.0 * F2[K] +
+                                                                         277020.0 * F5[K]));
+} /* --- end of function fehl45() --- */
+
+/*-----------------------------------------------------------------*/
+
+void rkf45(int (*F)(int n, double t, double y[], double yp[]), int NEQN,
+           double Y[], double YP[],
+           double *T, double TOUT,
+           double *RELERR, double ABSERR,
+           double *H,
+           int *NFE, int MAXNFE, int *IFLAG)
+
+
 /* Purpose ...
    -------
    Function rkf45() integrates a system of neqn first order
@@ -119,7 +264,7 @@ int rkf45(int (*F)(int n, double t, double y[], double yp[]), int NEQN,
    Input ...
    -----
    (*F)()  : User supplied function
-	     int F (NEQN, T, Y, YP)
+	     int F (NEQN - 2, T - точка, Y - значения в этой точки, YP)
              int    NEQN;
 	     double T, Y[], YP[];
 	     to evaluate derivatives YP[i] = dy[i]/dt
@@ -332,9 +477,9 @@ int rkf45(int (*F)(int n, double t, double y[], double yp[]), int NEQN,
                     break;
                 case 4: *NFE = 0; /* Reset function evaluation counter */
                     break;
-                case 5: if (ABSERR == 0.0) exit(0); /* stop here, user did */
+                case 5: if (ABSERR == 0.0) return;; /* stop here, user did */
                     break; /* not heed warning    */
-                case 6: if (((*RELERR) <= *SAVRE) && (ABSERR <= *SAVAE)) exit(0);
+                case 6: if (((*RELERR) <= *SAVRE) && (ABSERR <= *SAVAE)) return;;
                     break; /* as for case 5       */
             } /* end switch (*KFLAG) ... */
         } else {
@@ -353,7 +498,7 @@ int rkf45(int (*F)(int n, double t, double y[], double yp[]), int NEQN,
                         if (*KFLAG == 3) MFLAG = abs(*IFLAG);
                     }
                     break;
-                default: exit(0); /* stop here as the user did not
+                default: return; /* stop here as the user did not
                                   fix the problem pertaining to
                                   IFLAG = 5, 6, 7 or 8   */
             } /* end switch (*IFLAG) */
@@ -612,3 +757,4 @@ TakeAStep:
 #undef   RSIGN
 #undef   REMIN
 } /* --- end of function RKF45 --- */
+#endif

@@ -1,14 +1,24 @@
 #include "Rkf45.h"
+#include "rkf.h"
+#include <cmath>
+#include <iostream>
 
-dimkashelk::Rkf45::Rkf45(int count): F1(nullptr),
-                                     F2(nullptr),
-                                     F3(nullptr),
-                                     F4(nullptr),
-                                     F5(nullptr),
-                                     SAVRE(nullptr),
-                                     SAVAE(nullptr),
-                                     KOP(nullptr),
-                                     INIT(nullptr),
-                                     JFLAG(nullptr),
-                                     KFLAG(nullptr) {
+void dimkashelk::Rkf45::calculate(int (*F)(int n, double t, double y[], double yp[]),
+                                  double valueArray[],
+                                  double t, double tout) {
+    int flag = 0;
+    int NEQN = 2;
+    rkfinit(NEQN, &flag);
+    double dop[2]{0.0, 0.0};
+    flag = 1;
+    double absErr = 0.00001, relErr = 0.00001;
+    double H[3 + 6 * 2];
+    double STEP = 0.2;
+    int NFE = 0;
+    int MAXNFE = 100000;
+    while (t <= tout) {
+        rkf45(F, NEQN, valueArray, dop, &t, t + STEP, &relErr, absErr, H, &NFE, MAXNFE, &flag);
+        std::cout << t << " " << valueArray[0] << " " << valueArray[1] << "\n";
+    }
+    rkfend();
 }

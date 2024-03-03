@@ -1,15 +1,13 @@
 #ifndef RKF45_H
 #define RKF45_H
-#include <vector>
 
 namespace dimkashelk {
     class Rkf45 {
     public:
-        explicit Rkf45(int count);
-    private:
-        std::vector<double> *F1, *F2, *F3, *F4, *F5, *SAVRE, *SAVAE;
-        int *KOP, *INIT, *JFLAG, *KFLAG;
+        static void calculate(int (*F)(int n, double t, double y[], double yp[]),
+                              double Y[],
+                              double T,
+                              double TOUT);
     };
 }
-
 #endif
