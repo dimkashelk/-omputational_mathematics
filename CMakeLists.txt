@@ -9,4 +9,11 @@ add_executable(computational_mathematics
         second_lab/Decomp.h
         second_lab/Solve.cpp
         second_lab/Solve.h
+        first_lab/main.cpp
+        first_lab/Langrage.h
+        first_lab/Langrage.cpp
+        first_lab/Spline.h
+        first_lab/Spline.cpp
+        first_lab/Quanc8.h
+        first_lab/Quanc8.cpp
 )
