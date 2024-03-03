@@ -19,4 +19,5 @@ add_executable(computational_mathematics
         third_lab/main.cpp
         third_lab/Rkf45.cpp
         third_lab/Rkf45.h
+        third_lab/rkf.h
 )

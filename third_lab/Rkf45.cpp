@@ -11,13 +11,13 @@ void dimkashelk::Rkf45::calculate(int (*F)(int n, double t, double y[], double y
     rkfinit(NEQN, &flag);
     double dop[2]{0.0, 0.0};
     flag = 1;
-    double absErr = 0.00001, relErr = 0.00001;
-    double H[3 + 6 * 2];
+    double ABS = 0.00001, REL = 0.00001;
+    double H[NEQN];
     double STEP = 0.2;
     int NFE = 0;
     int MAXNFE = 100000;
     while (t <= tout) {
-        rkf45(F, NEQN, valueArray, dop, &t, t + STEP, &relErr, absErr, H, &NFE, MAXNFE, &flag);
+        rkf45(F, NEQN, valueArray, dop, &t, t + STEP, &REL, ABS, H, &NFE, MAXNFE, &flag);
         std::cout << t << " " << valueArray[0] << " " << valueArray[1] << "\n";
     }
     rkfend();
