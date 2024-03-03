@@ -11,7 +11,7 @@ void dimkashelk::Rkf45::calculate(int (*F)(int n, double t, double y[], double y
     rkfinit(NEQN, &flag);
     double dop[2]{0.0, 0.0};
     flag = 1;
-    double ABS = 0.00001, REL = 0.00001;
+    double ABS = 0.0001, REL = 0.0001;
     double H[NEQN];
     double STEP = 0.2;
     int NFE = 0;
