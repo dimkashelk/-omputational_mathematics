@@ -113,7 +113,7 @@ int main() {
     const auto numbers = {1.0, 0.1, 0.01, 0.0001, 0.000001};
     for (const auto number: numbers) {
         std::cout << "p = " << number << ": \n";
-        std::cout << "Part one\t\t\tPart two\n";
+        std::cout << "Difference between two parts:\n";
 
         auto left = get_left_matrix(number);
         auto right = get_right_matrix(number);
@@ -129,7 +129,7 @@ int main() {
         const auto cond2 = solve.get_cond();
 
         for (int i = 0; i < res1.size(); i++) {
-            std::cout << "\tx" << i << ": " << res1[i] << "\t\t\t" << res2[i] << '\n';
+            std::cout << "\tx" << i << ": " << res1[i] - res2[i] << '\n';
         }
         std::cout << "cond: \t" << cond1 << "\t\t" << cond2 << "\n";
         const auto res3 = get_matrix_norm(get_difference_of_matrix(res1, res2)) / get_matrix_norm(res1);
