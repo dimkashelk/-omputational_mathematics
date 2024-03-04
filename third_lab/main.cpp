@@ -68,10 +68,12 @@ int main() {
     };
     std::cout << "Runge Kutta 6 with step " << h << "\n";
     rungeKutta6(f1, f2, y1, y2, t0, tEnd, h);
-    std::cout << "x = " << y1 << ", y = " << y2 << std::endl;
+    std::cout << "Result is x = " << y1 << ", y = " << y2 << "\n\n\n";
 
     y1 = 0.0, y2 = 1.0;
-    rungeKutta6(f1, f2, y1, y2, t0, tEnd, 0.001);
-    std::cout << "step = " << 0.001 << ": x = " << y1 << ", y = " << y2 << std::endl;
+    h = 0.00001;
+    std::cout << "Runge Kutta 6 with step " << h << "\n";
+    rungeKutta6(f1, f2, y1, y2, t0, tEnd, h);
+    std::cout << "Result is x = " << y1 << ", y = " << y2 << "\n\n\n";
     return 0;
 }
