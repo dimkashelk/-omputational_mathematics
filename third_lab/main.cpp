@@ -55,6 +55,7 @@ void rungeKutta6(ODEFunction f1, ODEFunction f2, double &y1, double &y2, double 
 
 int main() {
     double data[2]{0.0, 1.0};
+    std::cout << "RKF45 with eps = 0.0001\n";
     dimkashelk::Rkf45::calculate(func, data, 0, 4);
     std::cout << "\n\n\n\n";
 
