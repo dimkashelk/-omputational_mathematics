@@ -3,7 +3,7 @@
 #include <vector>
 #include <functional>
 #include "Langrage.h"
-#include "Quanc8.h"
+#include "../common/Quanc8.h"
 #include "Spline.h"
 
 double f(const double x) {
