@@ -14,10 +14,12 @@ add_executable(computational_mathematics
 #        first_lab/Langrage.cpp
 #        first_lab/Spline.h
 #        first_lab/Spline.cpp
-#        first_lab/Quanc8.h
-#        first_lab/Quanc8.cpp
-        third_lab/main.cpp
-        third_lab/Rkf45.cpp
-        third_lab/Rkf45.h
-        third_lab/rkf.h
+        common/Quanc8.h
+        common/Quanc8.cpp
+#        third_lab/main.cpp
+#        third_lab/Rkf45.cpp
+#        third_lab/Rkf45.h
+#        third_lab/rkf.h
+        coursework/main.cpp
+        coursework/zeroin.h
 )
