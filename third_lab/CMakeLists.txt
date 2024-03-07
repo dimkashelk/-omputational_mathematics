@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(third_lab
         main.cpp
-        Rkf45.cpp
-        Rkf45.h
+        ../common/Rkf45.cpp
+        ../common/Rkf45.h
 )

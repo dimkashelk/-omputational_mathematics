@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <cmath>
 #include <functional>
-#include "Rkf45.h"
+#include "../common/Rkf45.h"
 
 int func(int n, double t, double *value, double *res) {
     res[0] = -71 * value[0] - 70 * value[1] + std::exp(1 - t * t);
