@@ -2,15 +2,17 @@
 #include <cmath>
 #include <functional>
 #include "../common/Quanc8.h"
+#include "../common/Rkf45.h"
 #include "zeroin.h"
 
 double integrand(double y, double alpha) {
     return 1.0 / sqrt(2 * (alpha + pow(y, 3) / 3 - y));
 }
 
-void diff_func(int n, const double &t, const double *x, double *dx) {
+int diff_func(int n,  double t, double *x, double *dx) {
     dx[0] = x[1];
     dx[1] = x[0] * x[0] - 1;
+    return 0;
 }
 
 double to_solve(double alpha) {
@@ -31,7 +33,10 @@ double find_alpha(double a, double b) {
 int main() {
     double a = 2.0 / 3 + 0.000001, b = 300;
     double alpha = find_alpha(a, b);
-    std::cout << "a = " << a << ", b = " << b << "\nFind alpha: " << alpha << "\nSolve value = " << to_solve(alpha)
-              << "\n\n";
+    std::cout << "a = " << a << ", b = " << b << "\nFind alpha: " << alpha << "\nSolve value = " << to_solve(alpha) << "\n\n";
+
+    std::cout << "RKF for diff system:\n";
+    double data[2]{0.0, std::sqrt(2 * alpha)};
+    dimkashelk::Rkf45::calculate(diff_func, data, 0, 1);
     return 0;
 }

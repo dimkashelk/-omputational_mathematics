@@ -17,9 +17,9 @@ add_executable(computational_mathematics
         common/Quanc8.h
         common/Quanc8.cpp
 #        third_lab/main.cpp
-#        third_lab/Rkf45.cpp
-#        third_lab/Rkf45.h
-#        third_lab/rkf.h
+        common/Rkf45.cpp
+        common/Rkf45.h
+        common/rkf.h
         coursework/main.cpp
         coursework/zeroin.h
 )
