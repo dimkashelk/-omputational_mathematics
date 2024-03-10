@@ -38,5 +38,15 @@ int main() {
     std::cout << "RKF for diff system:\n";
     double data[2]{0.0, std::sqrt(2 * alpha)};
     dimkashelk::Rkf45::calculate(diff_func, data, 0, 1);
+
+    std::cout << "\n\nPlay with alpha: \n";
+    for (double i = 0.97; i < 1.04; i += 0.01) {
+        double new_alpha = alpha * i;
+        std::cout << (i - 1) * 100 << "%, alpha = " << new_alpha << "\n";
+        std::cout << "RKF for diff system:\n";
+        data[0] = 0.0;
+        data[1] = std::sqrt(2 * new_alpha);
+        dimkashelk::Rkf45::calculate(diff_func, data, 0, 1);
+    }
     return 0;
 }
